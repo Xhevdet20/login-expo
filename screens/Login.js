@@ -37,22 +37,9 @@ import { Octicons, Fontisto, Ionicons } from '@expo/vector-icons';
 import  KeyboardAvoidingWrapper from './../components/KeyboardAvoidingWrapper'
 
 
-const Login = () => {
+const Login = ({navigation}) => {
   const[hidePassword, setHidePassword] = useState(true)
 
-
-  // Persisting login
-  const persistLogin = (credentials, message, status) => {
-    AsyncStorage.setItem('flowerCribCredentials', JSON.stringify(credentials))
-      .then(() => {
-        handleMessage(message, status);
-        setStoredCredentials(credentials);
-      })
-      .catch((error) => {
-        handleMessage('Persisting login failed');
-        console.log(error);
-      });
-  };
 
   return (
     <KeyboardAvoidingWrapper>
@@ -65,7 +52,7 @@ const Login = () => {
           <Formik
             initialValues={{ email: '', password: '' }}
             onSubmit={(values) => {
-            console.log(values);
+            navigation.navigate('Welcome');
             }}
           >
             {({ handleChange, handleBlur, handleSubmit, values, }) => (
@@ -104,7 +91,9 @@ const Login = () => {
                 </StyledButton>
                 <ExtraView>
                   <ExtraText>Don't have an account already?</ExtraText>
-                  <TextLink>
+                  <TextLink onPress={() => {
+                    navigation.navigate('Signup');
+                  }}>
                     <TextLinkContent> Signup</TextLinkContent>
                   </TextLink>
                 </ExtraView>
