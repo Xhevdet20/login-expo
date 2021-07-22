@@ -18,6 +18,12 @@ import {
   InnerContainer,
   ButtonText,
   Colors,
+  MsgBox,
+  Line,
+  ExtraView,
+  ExtraText,
+  TextLink,
+  TextLinkContent
 } from './../components/styles';
 import { View, ActivityIndicator } from 'react-native';
 
@@ -29,6 +35,7 @@ import { Octicons, Fontisto, Ionicons } from '@expo/vector-icons';
 
 
 const Login = () => {
+  const[hidePassword, setHidePassword] = useState(true)
 
 
   // Persisting login
@@ -71,7 +78,34 @@ const Login = () => {
                   keyboardType="email-address"
                   icon="mail"
                 />
-                
+                <MyTextInput
+                  label="Password"
+                  placeholder="********"
+                  placeholderTextColor={darkLight}
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  value={values.password}
+                  icon="lock"
+                  secureTextEntry={hidePassword}
+                  isPassword={true}
+                  hidePassword={hidePassword}
+                  setHidePassword={setHidePassword}
+                />
+                <MsgBox>...</MsgBox>
+                <StyledButton onPress={handleSubmit}>
+                  <ButtonText>Login</ButtonText>
+                </StyledButton>
+                <Line />
+                <StyledButton google={true} onPress={handleSubmit}>
+                  <Fontisto name="google" color={primary} size={25}/>
+                  <ButtonText google={true} >Signin with Google</ButtonText>
+                </StyledButton>
+                <ExtraView>
+                  <ExtraText>Don't have an account already?</ExtraText>
+                  <TextLink>
+                    <TextLinkContent> Signup</TextLinkContent>
+                  </TextLink>
+                </ExtraView>
               </StyledFormArea>
             )}
           </Formik>
@@ -80,7 +114,7 @@ const Login = () => {
   );
 };
 
-const MyTextInput = ({ label, icon, ...props }) => {
+const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, ...props }) => {
   return (
     <View>
       <LeftIcon>
@@ -88,7 +122,11 @@ const MyTextInput = ({ label, icon, ...props }) => {
       </LeftIcon>
       <StyledInputLabel>{label}</StyledInputLabel>
       <StyledTextInput {...props} />
-  
+      {isPassword && (
+        <RightIcon onPress={() => setHidePassword(!hidePassword)}>
+          <Ionicons size={30} color={darkLight} name={hidePassword ? 'md-eye-off' : 'md-eye'} />
+        </RightIcon>
+      )}
     </View>
   );
 };
