@@ -33,9 +33,11 @@ const { darkLight, brand, primary } = Colors;
 // Datepicker
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-
 // icon
 import { Octicons, Fontisto, Ionicons } from '@expo/vector-icons';
+
+// Keyboard avoiding wrapper
+import  KeyboardAvoidingWrapper from './../components/KeyboardAvoidingWrapper'
 
 
 const Signup = () => {
@@ -59,7 +61,7 @@ const Signup = () => {
 
 
   return (
-
+    <KeyboardAvoidingWrapper>
       <StyledContainer>
         <StatusBar style="dark" />
         <InnerContainer>
@@ -164,6 +166,7 @@ const Signup = () => {
           </Formik>
         </InnerContainer>
       </StyledContainer>
+      </KeyboardAvoidingWrapper>  
   );
 };
 

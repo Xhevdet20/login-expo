@@ -25,13 +25,16 @@ import {
   TextLink,
   TextLinkContent
 } from './../components/styles';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
 
 //colors
 const { darkLight, brand, primary } = Colors;
 
 // icon
 import { Octicons, Fontisto, Ionicons } from '@expo/vector-icons';
+
+// Keyboard avoiding wrapper
+import  KeyboardAvoidingWrapper from './../components/KeyboardAvoidingWrapper'
 
 
 const Login = () => {
@@ -52,14 +55,13 @@ const Login = () => {
   };
 
   return (
-
+    <KeyboardAvoidingWrapper>
       <StyledContainer>
         <StatusBar style="dark" />
         <InnerContainer>
           <PageLogo resizeMode="cover" source={require('./../assets/img/expo-bg1.png')} />
           <PageTitle>Flower Crib</PageTitle>
           <SubTitle>Account Login</SubTitle>
-
           <Formik
             initialValues={{ email: '', password: '' }}
             onSubmit={(values) => {
@@ -111,6 +113,7 @@ const Login = () => {
           </Formik>
         </InnerContainer>
       </StyledContainer>
+    </KeyboardAvoidingWrapper>
   );
 };
 
